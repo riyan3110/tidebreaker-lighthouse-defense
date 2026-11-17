@@ -21,7 +21,8 @@ export function createRng(seed = 1) {
 }
 
 export class GameWorld {
-  constructor(seed = 1, audio = null) {
+  constructor(seed = 1, audio = null, persistScores = true) {
+    this.persistScores = persistScores;
     this.seed = seed;
     this.audio = audio;
     this.reset(seed);
@@ -83,6 +84,7 @@ export class GameWorld {
   }
 
   _loadBest() {
+    if (!this.persistScores) return 0;
     try {
       const v = Number(localStorage.getItem('tidebreaker_best') || '0');
       return Number.isFinite(v) ? v : 0;
@@ -94,6 +96,7 @@ export class GameWorld {
   _saveBest() {
     if (this.score > this.bestScore) {
       this.bestScore = this.score;
+      if (!this.persistScores) return;
       try {
         localStorage.setItem('tidebreaker_best', String(this.bestScore));
       } catch {

@@ -4,13 +4,24 @@ import { GameRenderer } from './render.js';
 import { runShotScene } from './shots.js';
 import { GameWorld } from './world.js';
 
-const canvas = document.getElementById('game');
-const audio = new SoundEngine();
-const world = new GameWorld(1, audio);
-const renderer = new GameRenderer(canvas);
-
 const params = new URLSearchParams(window.location.search);
 const shotName = params.get('shot');
+const canvas = document.getElementById('game');
+const audio = new SoundEngine();
+const world = new GameWorld(1, audio, !shotName);
+const renderer = new GameRenderer(canvas);
+
+// Read-only telemetry for browser QA; gameplay still changes only through input.
+Object.defineProperty(window, '__tidebreaker', {
+  get: () => ({
+    screen: world.screen, wave: world.waveIndex + 1, hp: world.hp,
+    score: world.score, shards: world.shards, kills: world.kills,
+    muted: audio.muted, cooldowns: { ...world.cooldowns },
+    upgrades: { ...world.upgradeLevels },
+    enemies: world.enemies.map(({ x, y, type, hp }) => ({ x, y, type, hp })),
+  }),
+});
+
 const shotSeed = Number(params.get('seed') || '1') || 1;
 
 if (shotName) {
