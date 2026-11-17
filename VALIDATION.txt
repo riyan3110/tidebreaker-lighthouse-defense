@@ -21,7 +21,7 @@ dimensions, byte limits, browser rendering and scene states were verified.
 MAKEFUN_OUTPUT_DIR=out node main.ts and node main.ts (/output fallback)
 produced the same 14 files with identical SHA-256 manifests.
 Dossier SHA-256:
-97fb17675cf21cf8dfea680827f6a6502bb850cda96a92591a0f10c71d2a3f34
+fab9d732e9e5113edf4aa0816feff9e91d58633a4a3958e21e34166b52f40458
 The fallback initially lacked filesystem permission; /output was created
 and assigned to the current user before the successful fallback run.
 Vendor library compares byte-identical to kit starter/vendor/makefun-game.ts.
