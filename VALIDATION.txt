@@ -1,0 +1,34 @@
+Tidebreaker validation
+
+Browser: Chromium 154, viewport 1280x720, Chrome DevTools Protocol.
+Real mouse/keyboard run: title, start, pause, resume, mute, seven upgrade
+shops, upgrade purchases, wave-eight boss victory, keyboard restart,
+idle defeat and mouse restart passed. No gameplay state was injected.
+Console errors: 0. External network requests: 0. Local module loading
+uses the static HTTP server, as expected.
+
+Screenshot scenes: all four rendered by game/src/shots.js through the real
+simulation. Each captured twice with identical JPEG bytes. Victory scene
+cleared all eight waves, 195 kills, score 107942; defeat scene reached wave 2.
+All images are 1280x720 JPEGs, below 262144 bytes:
+1-start.jpg: 62000 bytes
+2-play.jpg: 67256 bytes
+3-victory.jpg: 50642 bytes
+4-defeat.jpg: 38970 bytes
+Visual image review was attempted but its provider returned HTTP 403;
+dimensions, byte limits, browser rendering and scene states were verified.
+
+MAKEFUN_OUTPUT_DIR=out node main.ts and node main.ts (/output fallback)
+produced the same 14 files with identical SHA-256 manifests.
+Dossier SHA-256:
+97fb17675cf21cf8dfea680827f6a6502bb850cda96a92591a0f10c71d2a3f34
+The fallback initially lacked filesystem permission; /output was created
+and assigned to the current user before the successful fallback run.
+Vendor library compares byte-identical to kit starter/vendor/makefun-game.ts.
+
+Kit check --kit <kit> --repo <repo> --worktree:
+4 passed, 1 failed, 14 skipped, 5 checked at submission.
+Only failure: transcripts_present. No transcripts were supplied to check.
+Transcript/run-record validation remains pending. User explicitly prohibited
+makefun bundle/record/submit; none was run. No submission was made.
+The kit check does not run the sealed game scorer or provide a judge grade.
